@@ -1,0 +1,81 @@
+<html>
+<head><title>Canvas example</title></head>
+<script type="text/javascript">
+var x = -1;
+var y = -1;
+
+function canvaMouseDown(event) {
+	x = event.clientX;
+	y = event.clientY;
+}
+
+function canvaMouseUp(event) {
+	if (x != -1 && y != -1) {
+		var canva = document.getElementById('canva');
+		var ctx = canva.getContext("2d");
+
+		var xEnd = event.clientX;
+		var yEnd = event.clientY;
+		
+		if (document.getElementById('shape').checked) {
+			ctx.strokeStyle = "#" + document.getElementById('color').value;
+			ctx.beginPath();
+			ctx.moveTo(x, y);
+			ctx.lineTo(xEnd, yEnd);
+			ctx.stroke();
+		} else {
+			ctx.fillStyle = "#" + document.getElementById('color').value;
+			ctx.fillRect(x, y, xEnd, yEnd);
+		}
+	}
+	
+	x = -1;
+	y = -1;
+}
+
+function canvaClick(event) {
+	alert("clientX="+event.clientX+" clientY="+event.clientY);
+}
+
+function defaultColor() {
+	if (document.getElementById('color').value == '' || document.getElementById('color').value.length < 6) {
+		document.getElementById('color').value = '000000';
+	}
+}
+function clearCanvas() {
+	var canva = document.getElementById('canva');
+	var ctx = canva.getContext("2d");
+	
+	ctx.clearRect(0, 0, canva.width, canva.height);
+}
+function init() {
+	var canva = document.getElementById('canva');
+	canva.addEventListener('mousedown', canvaMouseDown, false);
+	canva.addEventListener('mouseup', canvaMouseUp, false);
+	
+	document.getElementById('picture').width = canva.width;
+	document.getElementById('picture').height = canva.height;
+}
+function copyImage() {
+	var canva = document.getElementById('canva');
+	var imageData = canva.toDataURL("image/png");
+	document.getElementById('picture').src = imageData;
+}
+</script>
+<body onload="init()">
+<table border="0">
+<tr><td>
+<canvas id="canva" width="500" height="500" style="border:1px solid #000000;"></canvas>
+<br>
+<input type="checkbox" id="shape" value="line"> Draw line
+<br>
+RGB: #<input type="text" id="color" maxlength="6" value="000000" onchange="defaultColor();">
+<input type="button" value="Clear canvas" onclick="clearCanvas();">
+</td>
+<td><img id="picture">
+<br><input type="button" value="Copy here" onclick="copyImage()">
+</td>
+</tr>
+</table>
+</body>
+</html>

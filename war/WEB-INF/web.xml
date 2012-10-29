@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" >
+             
+    <description>Web Socket Chat application</description>        
+    <display-name>Web Socket Chat</display-name>
+    
+    <servlet-mapping>
+        <servlet-name>wsChat</servlet-name>
+        <url-pattern>/chatServer</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>wsChat</servlet-name>
+        <servlet-class>websocketchat.AkWebSocketServlet</servlet-class>
+    </servlet>    
+             
+</web-app>
