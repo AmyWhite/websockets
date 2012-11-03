@@ -127,9 +127,17 @@ public class AkWebSocketServlet extends WebSocketServlet {
         @Override
         protected void onTextMessage(CharBuffer cb) throws IOException {
             // we need to filter text from client in case it contains javascript
-        	
-        	if (cb.length() > 0) {
-                GenericMessage incomingMessage = new GenericMessage(cb.toString());
+        	StringBuilder filteredMessage = new StringBuilder();
+        	for (int i = 0; i < cb.length(); i++) {
+        		char ch = cb.get(i);
+        		switch((int)ch) {
+        		case 60: filteredMessage.append("&lt;"); break;
+        		case 62: filteredMessage.append("&gt;"); break;
+        		default: filteredMessage.append(ch);
+        		}
+        	}
+        	if (filteredMessage.length() > 0) {
+                GenericMessage incomingMessage = new GenericMessage(filteredMessage.toString());
                 incomingMessage.setParticipants(false);
                 incomingMessage.setSender(nickname);
                 sendMessage(incomingMessage);

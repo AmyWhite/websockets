@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="WebSocketChat" default="deploy" basedir=".">
+<project name="WebSocketChat" default="deploywar" basedir=".">
     <description>Builds, tests, and runs the project WebSocketChat.</description>
     
     <property name="appserver.lib" value="E:/Programs/apache-tomcat-7.0.32/lib" />
@@ -39,6 +39,12 @@
         </copy>
     </target>
     
-
+	<target name="deploywar" depends="build" description="Deploying WAR">
+		<war destfile="${deploy.path}/${name}.war" webxml="${web.dir}/WEB-INF/web.xml">
+			<fileset dir="${web.dir}">
+				<include name="**/*.*" />
+			</fileset>
+		</war>
+	</target>
     
 </project>
