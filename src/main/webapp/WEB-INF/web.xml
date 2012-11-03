@@ -14,7 +14,21 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>wsChat</servlet-name>
-        <servlet-class>websocketchat.AkWebSocketServlet</servlet-class>
+        <servlet-class>ak.websocketchat.AkWebSocketServlet</servlet-class>
     </servlet>    
              
+    <servlet-mapping>
+        <servlet-name>homeServlet</servlet-name>
+        <url-pattern>*.ak</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>homeServlet</servlet-name>
+        <servlet-class>ak.websocketchat.AkHomeServlet</servlet-class>
+    </servlet>    
+
+    <welcome-file-list>
+    	<welcome-file>index.ak</welcome-file>
+    </welcome-file-list>
+    
+
 </web-app>

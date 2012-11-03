@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package websocketchat;
+package ak.websocketchat;
 
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -46,20 +46,6 @@ public class AkWebSocketServlet extends WebSocketServlet {
         }
         return new ChatMessageInbound(nickname, connectionIds.incrementAndGet());
     }
-    
-    /*
-    private void sendAll(String message) {
-        // TODO filter text from client !!!
-        for (ChatMessageInbound conn : connections) {
-            try {
-                CharBuffer buf = CharBuffer.wrap(message);
-                conn.getWsOutbound().writeTextMessage(buf);
-            } catch (IOException ex) {
-                Logger.getLogger(AkWebSocketServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-    */
     
     private void sendMessage(GenericMessage theMessage) {
         for (ChatMessageInbound conn : connections) {
@@ -140,7 +126,9 @@ public class AkWebSocketServlet extends WebSocketServlet {
 
         @Override
         protected void onTextMessage(CharBuffer cb) throws IOException {
-            if (cb.length() > 0) {
+            // we need to filter text from client in case it contains javascript
+        	
+        	if (cb.length() > 0) {
                 GenericMessage incomingMessage = new GenericMessage(cb.toString());
                 incomingMessage.setParticipants(false);
                 incomingMessage.setSender(nickname);
