@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServlet;
  *
  */
 public class AkHomeServlet extends HttpServlet {
-
+	public static final long serialVersionUID = 1L;
+	
 	@Override
 	public void service(ServletRequest request, ServletResponse response)
 			throws ServletException, IOException {
